@@ -7,3 +7,8 @@ body {
 ul li {
 	list-style-type: none;
 }
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
+}
