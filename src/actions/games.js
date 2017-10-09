@@ -15,35 +15,49 @@ export function failed(error) {
 	}
 }
 
-function makeUrl(status) {
-	switch(status) {
-			case 'waiting':
-				return `${constants.url}/games/?status=waiting`;
-
-			case 'active':
-				return `${constants.url}/games/?status=active`;
-
-			case 'finished':
-				return `${constants.url}/games/?status=finished`;
-
-			default:
-				return `${constants.url}/games/`;
-		}
-}
-
 export function getData(status) {
-	const url = makeUrl(status);
-	console.log(url);
+	const url = status ? `${constants.url}/games/?status=${status}` : `${constants.url}/games/`;
+
 	return (dispatch) => {
 		fetch(url, {
 			method: 'GET', 
 		  mode: 'cors', 
-		  credentials: 'include', 
-		  //body: JSON.stringify(records),
+		  credentials: 'include',
 		  headers: constants.headers,
 		})
 			.then(response => response.json())
 			.then(data => dispatch(success(data)))
 			.catch(error => dispatch(failed(error)))
+	}
+}
+
+export function mySuccess(data) {
+	return {
+		type: constants.MY_GAMES_DATA_DONE,
+		payload: data
+	}
+}
+
+export function myFailed(error) {
+	return {
+		type: constants.MY_GAMES_DATA_FAILED,
+		payload: error
+	}
+}
+
+export function myGame(path) {
+	const url = path ? `${constants.url}/games/${path}` : `${constants.url}/games/`;
+	console.log(url);
+	return (dispatch) => {
+		fetch(url, {
+			method: 'POST', 
+		  mode: 'cors', 
+		  credentials: 'include', 
+		  body: {},
+		  headers: constants.headers,
+		})
+			.then(response => response.json())
+			.then(data => dispatch(mySuccess(data)))
+			.catch(error => dispatch(myFailed(error)))
 	}
 }

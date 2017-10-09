@@ -21,75 +21,9 @@ class Games extends Component {
 		this.props.getData(status);		
 	}
 
-	// newGame = () => {
-	// 	fetch(url + 'games/', {
-	// 		method: 'POST', 
-	// 	  mode: 'cors',
-	// 	  body: {},
-	// 	  credentials: 'include',
-	// 	  headers: headers,
-	// 	})
-	// 		.then(response => {
-	// 			if (response.status >= 400) {
-	// 				throw new Error("Bad response from server");
-	// 			}
-	// 			return response.json();
-	// 		})
-	// 		.then(() => this.getRoomList('GET')
-	// 		);
-	// }
-
-	// leaveRoom = (id) => {
-	// 	fetch(url + `games/${id}/leave/`, {
-	// 		method: 'POST', 
-	// 	  mode: 'cors', 
-	// 	  credentials: 'include',
-	// 	  headers: headers,
-	// 	})
-	// 		.then(response => {
-	// 			if (response.status >= 400) {
-	// 				throw new Error("Bad response from server");
-	// 			}
-	// 			return response.json();
-	// 		})
-	// 		.then(() => this.getRoomList('GET')
-	// 		);
-	// }
-
-	// joinRoom = (id) => {
-	// 	fetch(url + `games/${id}/join/`, {
-	// 		method: 'POST', 
-	// 	  mode: 'cors', 
-	// 	  credentials: 'include',
-	// 	  headers: headers,
-	// 	})
-	// 		.then(response => {
-	// 			if (response.status >= 400) {
-	// 				throw new Error("Bad response from server");
-	// 			}
-	// 			return response.json();
-	// 		})
-	// 		.then(() => this.getRoomList('GET')
-	// 		);
-
-	// }
-
-	// startGame = (id) => {
-	// 	fetch(url + `games/${id}/start/`, {
-	// 		method: 'POST', 
-	// 	  mode: 'cors', 
-	// 	  credentials: 'include',
-	// 	  headers: headers,
-	// 	})
-	// 		.then(response => {
-	// 			if (response.status >= 400) {
-	// 				throw new Error("Bad response from server");
-	// 			}
-	// 			return response.json();
-	// 		})
-	// 		.then((game) => this.setState({ game })
-	// 		);
-	// }
+	myGames = (path) => {
+		this.props.myGame(path);
+	}
 
 	render() {
 		if (!this.props.me.logged) {
@@ -107,13 +41,13 @@ class Games extends Component {
 						<li onClick={this.getGamesList.bind(this, 'finished')}>finished</li>
 					</ul>
 				</div>
-	    	{/*
-				<FlatButton label="Add new room" 
-	    		onClick={this.newGame}
+	    	
+				<FlatButton label="Add new game" 
+	    		onClick={this.myGames.bind(this, '')}
 	    		backgroundColor={'#9CC842'}
 	    		hoverColor={'#6cf875'}
 	    	/>
-	    	*/}
+	    	
 	    	<div className="row">
 			    {games.length > 0 ? games.map((game, index) => 
 			     	<Room
@@ -138,7 +72,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getData: (status) => dispatch(actions.getData(status))
+    getData: (status) => dispatch(actions.getData(status)),
+		myGame: (path) => dispatch(actions.myGame(path))
   };
 }
 
