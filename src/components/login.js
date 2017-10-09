@@ -26,7 +26,6 @@ class Login extends Component {
 	render() {
 		
 		if (this.props.me.logged) {
-			console.log('logged');
 	    return <Redirect to="/games" />;
 	  }
 

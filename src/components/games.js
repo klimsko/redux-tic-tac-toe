@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import FlatButton from 'material-ui/FlatButton';
 import Room from './room';
@@ -8,15 +9,16 @@ import * as actions from '../actions/games';
 class Games extends Component {
 	
 	componentDidMount() {
-		this.getGamesList();
+		this.interval = setInterval(() => this.getGamesList(this.status), 3000);
 	}
 
 	componentWillUnmount() {
-    //clearInterval(this.interval);
+    clearInterval(this.interval);
   }
 
-	getGamesList = () => {
-		this.props.getData();		
+	getGamesList = (status) => {
+		this.status = status;
+		this.props.getData(status);		
 	}
 
 	// newGame = () => {
@@ -90,10 +92,21 @@ class Games extends Component {
 	// }
 
 	render() {
-		console.log(sessionStorage);
+		if (!this.props.me.logged) {
+	    return <Redirect to="/" />;
+	  }
 		const { games } = this.props.games;
 		return (
 			<div>
+				<div className="filterItems">
+					<ul>
+						<li className="filterName">Games filter:</li>
+						<li onClick={this.getGamesList.bind(this, '')} >all</li>
+						<li onClick={this.getGamesList.bind(this, 'waiting')} >waiting</li>
+						<li onClick={this.getGamesList.bind(this, 'active')}>active</li>
+						<li onClick={this.getGamesList.bind(this, 'finished')}>finished</li>
+					</ul>
+				</div>
 	    	{/*
 				<FlatButton label="Add new room" 
 	    		onClick={this.newGame}
@@ -125,7 +138,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getData: () => dispatch(actions.getData())
+    getData: (status) => dispatch(actions.getData(status))
   };
 }
 

@@ -15,9 +15,27 @@ export function failed(error) {
 	}
 }
 
-export function getData() {
+function makeUrl(status) {
+	switch(status) {
+			case 'waiting':
+				return `${constants.url}/games/?status=waiting`;
+
+			case 'active':
+				return `${constants.url}/games/?status=active`;
+
+			case 'finished':
+				return `${constants.url}/games/?status=finished`;
+
+			default:
+				return `${constants.url}/games/`;
+		}
+}
+
+export function getData(status) {
+	const url = makeUrl(status);
+	console.log(url);
 	return (dispatch) => {
-		fetch(`${constants.url}/games/`, {
+		fetch(url, {
 			method: 'GET', 
 		  mode: 'cors', 
 		  credentials: 'include', 

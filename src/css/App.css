@@ -1,8 +1,13 @@
 @import url('./bootstrap-grid.min.css');
 @import url('./bootstrap-reboot.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 
 body {
 	background-color: #F6F7F6;
+	font-family: 'Roboto', sans-serif;
+}
+ul {
+	padding-left: 0;
 }
 ul li {
 	list-style-type: none;
@@ -11,4 +16,14 @@ ul li {
 .menu {
   display: flex;
   justify-content: flex-end;
+}
+
+.filterItems ul li {
+	display: inline-block;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.filterItems .filterName {
+	font-weight: 500;
+	cursor: auto;
 }

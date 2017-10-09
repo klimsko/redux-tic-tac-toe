@@ -9,7 +9,6 @@ export const gamesReducer = (state = initialState, action) => {
 	switch(action.type) {
 
 		case constants.GAMES_DATA_DONE:
-			console.log('games', ...action.payload);
 			return { ...state, isError: false, games: action.payload };
 
 		case constants.GAMES_DATA_FAILED:
