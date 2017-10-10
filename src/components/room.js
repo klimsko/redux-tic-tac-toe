@@ -23,7 +23,7 @@ const Room = (props) => {
 			<div>
 				{	
 					props.game.players_count < 2 && props.players.indexOf(props.myName) === -1 ?
-					<FlatButton label="Join room" onClick={props.gameAction.bind(this, `${props.game.id}/join`)}/>
+					<FlatButton label="Join room" onClick={props.gameAction.bind(this, `${props.game.id}/join/`)}/>
 					: null
 				}
 				{
@@ -33,7 +33,7 @@ const Room = (props) => {
 				}
 				{
 					props.game.players_count === 2 && props.players.indexOf(props.myName) !== -1 ?
-					<FlatButton label="Start game" onClick={props.gameAction.bind(this, `${props.game.id}/start`)}/>
+					<FlatButton label="Start game" onClick={props.gameAction.bind(this, `${props.game.id}/start/`)}/>
 					: null
 				}
 			</div>

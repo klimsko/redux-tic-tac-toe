@@ -56,7 +56,6 @@ class Games extends Component {
 			     		players={game.players.map(player => player.name)}
 			     		gameAction={this.gameAction}
 			     		myName={this.props.me.username}
-			     		myGames={this.props.games.myGames}
 			     	/>) : null}
 		    </div>
 			</div>
