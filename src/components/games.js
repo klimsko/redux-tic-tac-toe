@@ -21,7 +21,7 @@ class Games extends Component {
 		this.props.getData(status);		
 	}
 
-	myGames = (path) => {
+	gameAction = (path) => {
 		this.props.myGame(path);
 	}
 
@@ -43,7 +43,7 @@ class Games extends Component {
 				</div>
 	    	
 				<FlatButton label="Add new game" 
-	    		onClick={this.myGames.bind(this, '')}
+	    		onClick={this.gameAction.bind(this, '')}
 	    		backgroundColor={'#9CC842'}
 	    		hoverColor={'#6cf875'}
 	    	/>
@@ -52,11 +52,11 @@ class Games extends Component {
 			    {games.length > 0 ? games.map((game, index) => 
 			     	<Room
 			     		key={index} 
-			     		id={game.id} 
-			     		players={game.players} 
-			     		// leaveRoom={this.leaveRoom}
-			     		// joinRoom={this.joinRoom}
-			     		// startGame={this.startGame}
+			     		game={game}
+			     		players={game.players.map(player => player.name)}
+			     		gameAction={this.gameAction}
+			     		myName={this.props.me.username}
+			     		myGames={this.props.games.myGames}
 			     	/>) : null}
 		    </div>
 			</div>
