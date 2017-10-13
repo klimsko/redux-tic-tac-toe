@@ -8,6 +8,7 @@ import './css/App.css';
 
 import Login from './components/login';
 import Games from './components/games';
+import Game from './components/game';
 import Menu from './components/menu';
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
 		        <Switch>
 	        		<Route exact path="/" component={Login} />
 		          <Route path="/games" component={Games} />
+              <Route path="/game/:gameId" component={Game} />
 		          <Route render = {() => <p>Błąd 404</p>} />
 		        </Switch>
 	        </div>

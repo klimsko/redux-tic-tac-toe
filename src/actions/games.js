@@ -15,9 +15,9 @@ export function failed(error) {
 	}
 }
 
-export function getData(status) {
-	const url = status ? `${constants.url}/games/?status=${status}` : `${constants.url}/games/`;
-
+export function getData(path) {
+	const fetchMyGame = typeof path === 'number' && path > 0;
+	const url = path ? `${constants.url}/games/${path}` : `${constants.url}/games/`;
 	return (dispatch) => {
 		fetch(url, {
 			method: 'GET', 
@@ -26,7 +26,7 @@ export function getData(status) {
 		  headers: constants.headers,
 		})
 			.then(response => response.json())
-			.then(data => dispatch(success(data)))
+			.then(data => dispatch(fetchMyGame ? mySuccess(data) : success(data)))
 			.catch(error => dispatch(failed(error)))
 	}
 }
@@ -45,15 +45,16 @@ export function myFailed(error) {
 	}
 }
 
-export function myGame(path) {
+export function postData(path, xy) {
 	const url = path ? `${constants.url}/games/${path}` : `${constants.url}/games/`;
-	console.log(url);
+	const records = xy ? xy : {};
+	
 	return (dispatch) => {
 		fetch(url, {
 			method: 'POST', 
 		  mode: 'cors', 
 		  credentials: 'include', 
-		  body: {},
+		  body: JSON.stringify(records),
 		  headers: constants.headers,
 		})
 			.then(response => response.json())

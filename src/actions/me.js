@@ -8,6 +8,13 @@ export function success(data) {
 	}
 }
 
+export function gamesSuccess(data) {
+	return {
+		type: constants.ME_DATA_GAMES,
+		payload: data
+	}
+}
+
 export function failed(error) {
 	return {
 		type: constants.ME_DATA_FAILED,
@@ -15,15 +22,7 @@ export function failed(error) {
 	}
 }
 
-export function logout(data) {
-	return {
-		type: constants.ME_LOGOUT,
-		payload: data
-	}
-}
-
 export function getData(records, act) {
-	console.log('logout', records, act);
 	return (dispatch) => {
 		fetch(`${constants.url}/user/${act}/`, {
 			method: 'POST', 
@@ -37,3 +36,20 @@ export function getData(records, act) {
 			.catch(error => dispatch(failed(error)))
 	}
 }
+
+export function getMe(games) {
+	const url = games ? `${constants.url}/user/me/games/` : `${constants.url}/user/me/`;
+
+	return (dispatch) => {
+		fetch(url, {
+			method: 'GET', 
+		  mode: 'cors', 
+		  credentials: 'include',
+		  headers: constants.headers,
+		})
+			.then(response => response.json())
+			.then(data => dispatch(games ? gamesSuccess(data) : success(data)))
+			.catch(error => dispatch(failed(error)))
+	}
+}
+

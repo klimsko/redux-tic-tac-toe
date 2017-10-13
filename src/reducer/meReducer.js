@@ -2,21 +2,22 @@ import * as constants from '../constants'
 
 const initialState = {
 	username: '',
-	won: 0,
-	lost: 0,
-	won_by_surrender: 0,
-	draws: 0,
-	surrendered: 0,
-	error: '',
-	logged: false
+	myGames: [],
+	logged: false,
+	error: ''
 }
 
 export const meReducer = (state = initialState, action) => {
 	switch(action.type) {
 
 		case constants.ME_DATA_DONE:
-			console.log('meReducer', action.payload);
-			return { ...state, logged: true, ...action.payload };
+			const { username } = action.payload;
+			const logged = username ? true : false;
+
+			return { ...state, logged, username};
+
+		case constants.ME_DATA_GAMES:
+			return { ...state, myGames: action.payload};
 
 		case constants.ME_DATA_FAILED:
 			return { ...state, logged: false };

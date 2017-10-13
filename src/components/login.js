@@ -9,6 +9,10 @@ import * as actions from '../actions/me';
 
 class Login extends Component {
 
+	componentDidMount() {
+		this.props.getMe();
+	}
+
 	onInputChange = (field, e) => {
 		const value = e.currentTarget.value;
 		field === 'username' ? this.username = value : this.password = value;
@@ -24,7 +28,7 @@ class Login extends Component {
 	}
 
 	render() {
-		
+
 		if (this.props.me.logged) {
 	    return <Redirect to="/games" />;
 	  }
@@ -58,7 +62,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getData: (records, act) => dispatch(actions.getData(records, act))
+    getData: (records, act) => dispatch(actions.getData(records, act)),
+    getMe: (games) => dispatch(actions.getMe(games))
   };
 }
 
