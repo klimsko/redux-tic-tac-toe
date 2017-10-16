@@ -28,16 +28,6 @@ class Games extends Component {
 		this.props.postData(id+path);
 	}
 
-	// findMyGame = (games) => {
-	// 	if (games.length > 0) {
-	// 		return games.filter(game => {
-	// 		  return game.players.some(player => {
-	// 		    return player.name === this.props.me.username;
-	// 		  });
-	// 		});
-	// 	} else return {};
-	// }
-
 	findMyGame = (games) => {
 		if (games.length > 0) {
 			return games.filter(game => game.started)[0];
@@ -54,16 +44,12 @@ class Games extends Component {
 		
 		const myGame = this.findMyGame(myGames);
 		const started = myGame !== undefined ? myGame.started : false;
-		// const started = myGame.hasOwnProperty('started') ? myGame.started : false;
-		console.log('myGame', myGame);
-		// console.log('started', started);
 		
 		if (!this.props.me.logged) {
 	    return <Redirect to="/" />;
 	  }
 	 
 	  if (started) {
-	  	console.log('game started')
 			return <Redirect to={"/game/" + myGame.id} />;
 		}
 	 
@@ -73,20 +59,11 @@ class Games extends Component {
 				<div className="filterItems">
 					<ul>
 						<li className="filterName">Games filter:</li>
-						<li onClick={this.getGamesList.bind(this, '')} >all</li>
 						<li onClick={this.getGamesList.bind(this, '?status=waiting')}>waiting</li>
 						<li onClick={this.getGamesList.bind(this, '?status=active')}>active</li>
 						<li onClick={this.getGamesList.bind(this, '?status=finished')}>finished</li>
 					</ul>
 				</div>
-
-				{/*myGame.map(game => {
-					return (
-						<FlatButton key={game.id} label={`${game.id} surrender`} 
-		    	    		onClick={this.surrenderGame.bind(this, game.id)}
-		    	  />
-					)
-				})*/}
 	    	
 				<FlatButton label="Add new game" 
 	    		onClick={this.gameAction.bind(this, '', '')}

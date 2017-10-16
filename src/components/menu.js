@@ -11,12 +11,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 import * as actions from '../actions/me';
 
-const styles = {
-  customWidth: {
-    width: 200,
-  },
-};
-
 class LoginBtn extends Component {
   static muiName = 'FlatButton';
 

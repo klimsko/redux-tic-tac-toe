@@ -20,10 +20,10 @@ class Login extends Component {
 
 	userLogin = (act) => {
 		const self = this;
-		const records = new function() {
-		  this.username = self.username;
-		  this.password = self.password;
-		}
+		const records = new (function() {
+				  this.username = self.username;
+				  this.password = self.password;
+				})();
 		this.props.getData(records, act);
 	}
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import { Redirect } from 'react-router-dom';
+
+import Players from './players';
 
 const style = {
   height: 200,
@@ -10,20 +11,6 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
 };
-
-const Players = (props) => {
-	return (
-		<div>
-			{props.players.map((pl, index) => {
-				return (
-					<div style={{fontWeight: 'bold'}} key={pl.id}>
-						Player {index+1}: {pl.name}
-					</div>
-				)
-			})}
-		</div>
-	)
-}
 
 const Room = (props) => {
 	return (

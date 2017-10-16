@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper';
 
 const style = {
   paper: {
-  	height: 'auto',
+  	height: 450,
 	  width: 450,
 	  margin: '20px auto',
 	  textAlign: 'center'
@@ -21,11 +21,10 @@ const style = {
 const Board = (props) => {
 	const table = props.board;
 	return (
-		<Paper style={style.paper} zDepth={1} rounded={false} >
+		<Paper style={style.paper} className='board' zDepth={1} rounded={false} >
 			<div style={{ display: 'flex', flexWrap: 'wrap' }}>
-				{table.map((row, x) => row.map((cell, y) => <div key={y} onClick={props.onCellClick.bind(this, x, y)} style={style.table} >{cell}</div>))}
+				{table.map((row, x) => row.map((cell, y) => <div key={y} onClick={props.onCellClick.bind(this, x, y, cell)} style={style.table} >{cell}</div>))}
 			</div>
-				
 		</Paper>
 	)
 }

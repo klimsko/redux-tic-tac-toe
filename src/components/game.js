@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
 
 import Players from './players';
 import Board from './board';
-//import Modal from './modal';
+import Modal from './modal';
 import * as actions from '../actions/games';
+
+const styles = {
+  paper: {
+  	height: 'auto',
+	  margin: 20,
+	  textAlign: 'center',
+	  display: 'block'
+  }
+};
 
 class Game extends Component {
 	
@@ -29,25 +39,29 @@ class Game extends Component {
 	}
 
 	gameOver = () => {
-		//this.state.finished ? clearInterval(this.interval) : null;
+		clearInterval(this.interval);
 	}
 
-	onCellClick = (x, y) => {
-		const xy = {x: x, y: y};
-		this.props.postData(`${this.id}/moves/`, xy);
+	onCellClick = (x, y, cell) => {
+		if (!cell) {
+			const xy = {x: x, y: y};
+			this.props.postData(`${this.id}/moves/`, xy);
+		}
 	}
 
 	render() {
 		const { myGame } = this.props.games;
+		if (myGame.finished) this.gameOver();
 
 		return (
 			<div className="row">
-				{/*
-								{this.state.finished ? <Modal /> : null}
-								{game.players !== undefined ? <Players players={game.players} /> : null}
-				*/}
+
+				{myGame.finished ? <Modal /> : null}
+
 				<div className="col-md-4">
-					{myGame.hasOwnProperty('players') ? <Players players={myGame.players} /> : null}
+					<Paper style={styles.paper} zDepth={1} rounded={false}>
+						{myGame.hasOwnProperty('players') ? <Players players={myGame.players} /> : null}
+					</Paper>
 					<div>
 				    <FlatButton label="Surrender" 
 	  	    		onClick={this.surrenderGame}
@@ -58,9 +72,6 @@ class Game extends Component {
 					{myGame.hasOwnProperty('board') ? <Board onCellClick={this.onCellClick} board={myGame.board} /> : null}
 				</div>
 				
-				
-		   
-		 
 			</div>
 		)
 	}

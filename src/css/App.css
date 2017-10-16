@@ -18,6 +18,11 @@ ul li {
   justify-content: flex-end;
 }
 
+.filterItems {
+	margin: 20px;
+	text-align: center;
+}
+
 .filterItems ul li {
 	display: inline-block;
 	margin-left: 10px;
@@ -27,3 +32,12 @@ ul li {
 	font-weight: 500;
 	cursor: auto;
 }
+
+/*.cell {
+	width: calc(100% / 30);
+	height: calc(100% / 30);
+	text-align: center;
+	border: .5px solid #033077;
+	display: inline-block;
+	cursor: pointer;
+}*/
