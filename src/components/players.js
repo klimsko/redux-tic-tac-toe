@@ -5,11 +5,7 @@ import SvgIconFace from 'material-ui/svg-icons/action/face';
 
 const styles = {
   chip: {
-    margin: 4,
-  },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    margin: 4
   }
 };
 

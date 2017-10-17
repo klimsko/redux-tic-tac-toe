@@ -8,8 +8,13 @@ const style = {
   height: 200,
   width: 200,
   margin: 20,
+  padding: 5,
   textAlign: 'center',
-  display: 'inline-block',
+  display: 'flex',
+  flexDirection: 'column',
+  flexWrap: 'no-wrap',
+  alignContent: 'space-between',
+  justifyContent: 'space-between'
 };
 
 const Room = (props) => {

@@ -8,6 +8,8 @@ import Players from './players';
 import Board from './board';
 import Modal from './modal';
 import * as actions from '../actions/games';
+import * as modalActions from '../actions/modal';
+import * as meActions from '../actions/me';
 
 const styles = {
   paper: {
@@ -36,10 +38,12 @@ class Game extends Component {
 
 	surrenderGame = () => {
 		this.props.postData(`${this.id}/surrender/`);
+		this.props.modalIsOpen(true);
 	}
 
 	gameOver = () => {
 		clearInterval(this.interval);
+		this.props.getMe('games');
 	}
 
 	onCellClick = (x, y, cell) => {
@@ -56,7 +60,7 @@ class Game extends Component {
 		return (
 			<div className="row">
 
-				{myGame.finished ? <Modal /> : null}
+				{myGame.finished ? <Modal modalIsOpen={this.props.modalIsOpen} open={this.props.modal.isOpen} /> : null}
 
 				<div className="col-md-4">
 					<Paper style={styles.paper} zDepth={1} rounded={false}>
@@ -86,7 +90,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 		getData: (path) => dispatch(actions.getData(path)),
-		postData: (path, xy) => dispatch(actions.postData(path, xy))
+		postData: (path, xy) => dispatch(actions.postData(path, xy)),
+		modalIsOpen: (data) => dispatch(modalActions.modalIsOpen(data)),
+		getMe: (game) => dispatch(meActions.getMe(game))
   };
 }
 

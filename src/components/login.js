@@ -4,8 +4,17 @@ import { Redirect } from 'react-router-dom';
 
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
 
 import * as actions from '../actions/me';
+
+const style = {
+  height: 200,
+  width: 300,
+  margin: '20px auto',
+  textAlign: 'center',
+  display: 'block',
+};
 
 class Login extends Component {
 
@@ -34,7 +43,7 @@ class Login extends Component {
 	  }
 
 		return (
-			<div>
+			<Paper style={style} zDepth={1} rounded={false} >
 				<TextField
 					onChange={this.onInputChange.bind(this, 'username')}
 		      hintText="Hint Text"
@@ -49,7 +58,7 @@ class Login extends Component {
 		    /><br />
 		    <FlatButton label="Register" onClick={this.userLogin.bind(this, 'register')} />
 		    <FlatButton label="Login" onClick={this.userLogin.bind(this, 'login')} />
-			</div>
+			</Paper>
 		)
 	}
 }
