@@ -69,6 +69,7 @@ class Games extends Component {
 	    		onClick={this.gameAction.bind(this, '', '')}
 	    		backgroundColor={'#9CC842'}
 	    		hoverColor={'#6cf875'}
+	    		disabled={myGames.length > 0}
 	    	/>
 	    	
 	    	<div className="row">
@@ -77,6 +78,7 @@ class Games extends Component {
 			     	<Room
 			     		key={index} 
 			     		game={game}
+			     		canIjoin={myGames.length < 1}
 			     		gameAction={this.gameAction}
 			     		myName={this.props.me.username}
 			     	/>) : null}

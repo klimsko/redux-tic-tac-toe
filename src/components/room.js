@@ -24,20 +24,33 @@ const Room = (props) => {
 			<div>
 				{	
 					props.game.players_count < 2 && 
-					props.game.players.map(player => player.name).indexOf(props.myName) === -1 ?
+					props.game.players.map(player => player.name).indexOf(props.myName) === -1 && 
+					props.canIjoin && !props.game.started ?
 					<FlatButton label="Join room" onClick={props.gameAction.bind(this, props.game.id, '/join/')}/>
 					: null
 				}
 				{
-					props.game.players.map(player => player.name).indexOf(props.myName) !== -1  ? 
+					props.game.players.map(player => player.name).indexOf(props.myName) !== -1 &&
+					!props.game.finished && !props.game.started  ? 
 					<FlatButton label="Leave room" onClick={props.gameAction.bind(this, props.game.id, '/leave/')}/>
 					: null
 				}
 				{
-					props.game.players_count === 2 
-					&& props.game.players.map(player => player.name).indexOf(props.myName) !== -1 ?
+					props.game.players_count === 2 &&
+					props.game.players.map(player => player.name).indexOf(props.myName) !== -1 &&
+					!props.game.finished && !props.game.started ?
 					<FlatButton label="Start game" onClick={props.gameAction.bind(this, props.game.id, '/start/')}/>
 					: null
+				}
+			</div>
+			<div style={{ fontSize: '0.8rem' }}>
+				{ 
+					props.game.players_count >= 2 && !props.game.finished && !props.game.started
+					? <p>Waiting for start</p> : null
+				}
+				{ 
+					props.game.players_count < 2 && !props.game.finished && !props.game.started
+					? <p>Waiting for second player</p> : null
 				}
 			</div>
 		</Paper>
