@@ -3,9 +3,19 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import FlatButton from 'material-ui/FlatButton';
+import {Tabs, Tab} from 'material-ui/Tabs';
+
 import Room from './room';
 import * as gamesActions from '../actions/games';
 import * as meActions from '../actions/me';
+
+const style = {
+	rooms: {
+		display: 'flex',
+		flexFlow: 'row wrap',
+		justifyContent: 'space-around'
+	}
+}
 
 class Games extends Component {
 	
@@ -55,25 +65,36 @@ class Games extends Component {
 	 
 		
 		return (
-			<div>
+			<div style={{ textAlign: 'center' }}>
 				<div className="filterItems">
-					<ul>
-						<li className="filterName">Games filter:</li>
-						<li onClick={this.getGamesList.bind(this, '?status=waiting')}>waiting</li>
-						<li onClick={this.getGamesList.bind(this, '?status=active')}>active</li>
-						<li onClick={this.getGamesList.bind(this, '?status=finished')}>finished</li>
-					</ul>
+				  <input type="radio" id="w" defaultChecked name="a"
+				  	onChange={this.getGamesList.bind(this, '?status=waiting')} />
+				  <label htmlFor="w">waiting</label>
+				  <input type="radio" id="a" name="a"
+				  	onChange={this.getGamesList.bind(this, '?status=active')} />
+				  <label htmlFor="a">active</label>
+				  <input type="radio" id="f" name="a"
+				  	onChange={this.getGamesList.bind(this, '?status=finished')} />
+				  <label htmlFor="f">finished</label>
+				  <div className="border"></div>
+					{/*<ul>
+											<li className="filterName">Games filter:</li>
+											<li onClick={this.getGamesList.bind(this, '?status=waiting')}>waiting</li>
+											<li onClick={this.getGamesList.bind(this, '?status=active')}>active</li>
+											<li onClick={this.getGamesList.bind(this, '?status=finished')}>finished</li>
+										</ul>*/}
 				</div>
 	    	
 				<FlatButton label="Add new game" 
 	    		onClick={this.gameAction.bind(this, '', '')}
-	    		backgroundColor={'#9CC842'}
-	    		hoverColor={'#6cf875'}
+	    		style={{ border: '1px solid #f90' }}
+	    		backgroundColor={'#F6F7F6'}
+	    		hoverColor={'#f90'}
 	    		disabled={myGames.length > 0}
 	    	/>
 	    	
 	    	<div className="row">
-			    
+			    <div style={style.rooms}>
 						{games.length > 0 ? games.map((game, index) =>
 			     	<Room
 			     		key={index} 
@@ -82,7 +103,7 @@ class Games extends Component {
 			     		gameAction={this.gameAction}
 			     		myName={this.props.me.username}
 			     	/>) : null}
-			   
+			   	</div>
 		    </div>
 			</div>
 		)

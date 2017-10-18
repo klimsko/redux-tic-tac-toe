@@ -6,11 +6,16 @@ body {
 	background-color: #F6F7F6;
 	font-family: 'Roboto', sans-serif;
 }
+
+ol,
 ul {
-	padding-left: 0;
-}
-ul li {
-	list-style-type: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
 .menu {
@@ -23,21 +28,52 @@ ul li {
 	text-align: center;
 }
 
-.filterItems ul li {
-	display: inline-block;
-	margin-left: 10px;
-	cursor: pointer;
+.filterItems {
+  width: 100%;
+  margin: 0 auto;
+  background: #F6F7F6;
+  position: relative;
+  height: 48px;
 }
-.filterItems .filterName {
-	font-weight: 500;
-	cursor: auto;
+.filterItems label {
+  width: 33.3%;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  color: #333;
+  float: left;
+  cursor: pointer;
 }
-
-/*.cell {
-	width: calc(100% / 30);
-	height: calc(100% / 30);
-	text-align: center;
-	border: .5px solid #033077;
-	display: inline-block;
-	cursor: pointer;
-}*/
+.filterItems input[type=radio] {
+  display: none;
+}
+.filterItems input[type=radio]:checked + label {
+  color: #f90;
+}
+.filterItems input[type=radio]:checked ~ div {
+  width: auto;
+}
+.filterItems input[type=radio]#w:checked ~ .border {
+  left: 0;
+  right: 66.66%;
+}
+.filterItems input[type=radio]#a:checked ~ .border {
+  left: 33.33%;
+  right: 33.33%;
+}
+.filterItems input[type=radio]#f:checked ~ .border {
+  left: 66.66%;
+  right: 0;
+}
+.filterItems .border {
+  position: absolute;
+  height: 2px;
+  background-color: #f90;
+  bottom: 0;
+  left: 0;
+  width: 33.3%;
+  -webkit-transition: left 0.5s ease-out, right 0.4s ease;
+  -moz-transition: left 0.5s ease-out, right 0.4s ease;
+  -o-transition: left 0.5s ease-out, right 0.4s ease;
+  transition: left 0.5s ease-out, right 0.4s ease;
+}
